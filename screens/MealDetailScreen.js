@@ -11,7 +11,7 @@ const MealDetailScreen = (props) => {
      );
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
