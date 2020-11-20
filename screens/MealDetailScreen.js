@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback} from 'react';
-import {View, Text, StyleSheet, Button, ScrollView, Image} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, Image} from 'react-native'
 import {MEALS} from '../data/dummy-data'
 import {HeaderButtons, Item} from 'react-navigation-header-buttons'
 import HeaderButton from '../components/HeaderButton'
@@ -7,6 +7,7 @@ import DefText from '../components/DefaultText'
 import {useSelector, useDispatch} from 'react-redux'
 import {toggleFavorite} from '../store/actions/meals'
 
+// IN REVISION MOVE TO A SEPARATE COMPONENT AND IMPORT 
 const ListItem = props => {
     return (
         <View style={styles.listItem}>
@@ -15,11 +16,17 @@ const ListItem = props => {
     )
 }
 
+// MAIN COMPONENT
 const MealDetailScreen = (props) => {
 
+    // CAN USE useSelector TO STORE SLICES OF REDUX STATE IN LOCAL VARIABLES
     const availableMeals = useSelector(state => state.meals.meals)
+    // LOCAL VARIABLE ASSIGNMENT OF MEALID WHICH IS BEING PASSED THROUGH NAVIGATION
+    // FROM THE CATEGORY MEALS SCREEN 
     const mealId = props.navigation.getParam('mealId')
+    // ITERATE THROUGH ALL MEALS UNTIL YOU FIND THE CORRECT (self) MEAL && LOCAL VARIABLE ASSIGNMENT
     const selectedMeal = availableMeals.find(meal => meal.id === mealId)
+    // USE THE ARRAY METHOD some() TO CHECK IF THIS MEAL IS IN THE FAVORITES ARRAY THAT WE GET FROM Redux STATE useSelector
     const currentMealFavoriteStatus = useSelector(state => state.meals.favoriteMeals.some(meal => meal.id === mealId))
     
     const dispatch = useDispatch();
